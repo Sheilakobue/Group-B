@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./recipe-list.module.css";
+import ViewRecipeBtn from "./view-recipe-btn";
 
 export default function RecipeList() {
   const [data, setData] = useState([]);
@@ -52,7 +53,8 @@ export default function RecipeList() {
               <h2 className={classes.cardTitle}>{item.title}</h2>
               {/* <p className={classes.cardDescription}>{item.description}</p> */}
               <p className={classes.cardCategory}>Category: {item.category}</p>
-            </div>
+              <ViewRecipeBtn/>
+              </div>
           </div>
         ))}
       </div>
