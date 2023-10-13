@@ -1,0 +1,27 @@
+.showMoreBtn {
+    --hover-shadows: 16px 16px 33px #121212, -16px -16px 33px #303030;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    border: none;
+    border-radius: 1.1em;
+    border-color: #121212;
+    background-color: rgb(95, 93, 93);
+    color: rgb(231, 225, 225);
+    padding: 1em 2em;
+    transition: box-shadow ease-in-out 0.3s, background-color ease-in-out 0.1s,
+        letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
+    box-shadow: 5px 5px 8px #564e4e;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.showMoreBtn:hover {
+    box-shadow: var(--hover-shadows);
+}
+
+.showMoreBtn:active {
+    box-shadow: var(--hover-shadows), var(--accent) 0px 0px 30px 5px;
+    transform: scale(0.95);
+}

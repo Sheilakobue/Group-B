@@ -1,11 +1,22 @@
 import React from "react";
 import Link from "next/link";
-import classes from'./main-nav.module.css'
-import { FaUser, FaEnvelope,FaHome } from "react-icons/fa";
+import Image from "next/image";
+import classes from "./main-nav.module.css";
+import { FaUser, FaEnvelope, FaHome } from "react-icons/fa";
 
-export default function MainNav() {
+const MainNav = () => {
   return (
     <header className={classes.header}>
+        <div className={classes.icon}>
+          <Image 
+            src="/recipe2.png"
+            alt="GroupB Logo"
+            width={40} 
+            height={40} 
+          />
+          
+        </div>
+     
       <Link className={classes.icon} href="/" title="Home">
         <FaHome />
       </Link>
@@ -34,4 +45,6 @@ export default function MainNav() {
       </nav>
     </header>
   );
-}
+};
+
+export default MainNav;

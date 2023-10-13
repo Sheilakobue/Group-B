@@ -71,6 +71,8 @@
         box-shadow: 5px 5px 8px #C9C3C3;
         justify-content: center;
         align-items: center;
+        font-size: 12px;
+        padding: 5px 8px;
         }
     
         .btn:hover {
@@ -82,5 +84,7 @@
             box-shadow: var(--hover-shadows), var(--accent) 0px 0px 30px 5px;
             transform: scale(0.95);
         }
+
+      
 
         

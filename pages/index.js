@@ -6,16 +6,17 @@ import { Fragment } from "react";
 
 const Home = () => {
   return (
-     
     <Fragment>
-      <Head>
-        <title>All recipes</title>
-      </Head>
       <Head>
         <title>All Recipes</title>
         <meta
           name="description"
           content="Explore food from around the world..."
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="/recipe-book (1).png"
         />
       </Head>
 
@@ -24,7 +25,7 @@ const Home = () => {
         <div
           className="mainContent"
           style={{
-            backgroundImage: `url('/spices-black.png')`, 
+            backgroundImage: `url('/spices-black.png')`,
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
@@ -36,7 +37,7 @@ const Home = () => {
             justifyContent: "center",
             flexDirection: "column",
             textAlign: "center",
-            color: "white", 
+            color: "white",
           }}
         >
           <h2 className="title">Explore food from around the world</h2>
@@ -48,7 +49,6 @@ const Home = () => {
           </Link>
         </div>
       </main>
-      
     </Fragment>
   );
 }

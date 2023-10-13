@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./recipe-list.module.css";
 import ViewRecipeBtn from "./view-recipe-btn";
+import ArrowIpIcon from "../icons/arrow-up-icon";
 
 export default function RecipeList() {
   const [data, setData] = useState([]);
@@ -15,8 +16,9 @@ export default function RecipeList() {
           throw new Error("Network response was not ok");
         }
         const jsonData = await response.json();
-        setData(jsonData.comments); // Assuming 'comments' is the key in the response object
+        setData(jsonData.comments || []); 
       } catch (error) {
+        console.error("Error fetching data:", error);
         setError(error);
       } finally {
         setLoading(false);
@@ -41,20 +43,23 @@ export default function RecipeList() {
         {data.map((item) => (
           <div className={classes.card} key={item._id}>
             <div className={classes.cardImageContainer}>
-              {item.images && item.images.length > 0 && (
+              {item.images && item.images.length > 0 ? (
                 <img
-                  src={item.images[0]} // Assuming the first image is at index 0
+                  src={item.images[0]} 
                   alt="Item Image"
                   className={classes.cardImage}
                 />
+              ) : (
+                <div className={classes.noImage}>No Image</div>
               )}
             </div>
             <div className={classes.cardContent}>
               <h2 className={classes.cardTitle}>{item.title}</h2>
-              {/* <p className={classes.cardDescription}>{item.description}</p> */}
+              
               <p className={classes.cardCategory}>Category: {item.category}</p>
-              <ViewRecipeBtn/>
-              </div>
+              <ViewRecipeBtn />
+              <ArrowIpIcon/>
+            </div>
           </div>
         ))}
       </div>
