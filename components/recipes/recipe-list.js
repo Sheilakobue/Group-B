@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import classes from "./recipe-list.module.css";
 import ViewRecipeBtn from "./view-recipe-btn";
 import ArrowIpIcon from "../icons/arrow-up-icon";
+import Link from "next/link";
 
 export default function RecipeList() {
   const [data, setData] = useState([]);
@@ -45,7 +46,7 @@ export default function RecipeList() {
             <div className={classes.cardImageContainer}>
               {item.images && item.images.length > 0 ? (
                 <img
-                  src={item.images[0]} 
+                  src={item.images[0]}
                   alt="Item Image"
                   className={classes.cardImage}
                 />
@@ -55,10 +56,12 @@ export default function RecipeList() {
             </div>
             <div className={classes.cardContent}>
               <h2 className={classes.cardTitle}>{item.title}</h2>
-              
+
               <p className={classes.cardCategory}>Category: {item.category}</p>
-              <ViewRecipeBtn />
-              <ArrowIpIcon/>
+              <Link href={`/recipe/${item._id}`}>
+                    <ViewRecipeBtn />
+              </Link>
+              <ArrowIpIcon />
             </div>
           </div>
         ))}
