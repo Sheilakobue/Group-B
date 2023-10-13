@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./recipe-list.module.css";
-import ViewRecipeBtn from "./view-recipe-btn";
-import ArrowIpIcon from "../icons/arrow-up-icon";
+import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
+import ArrowIpIcon from "../icons&Buttons/arrow-up-icon";
 import Link from "next/link";
 
 export default function RecipeList() {
@@ -17,7 +17,7 @@ export default function RecipeList() {
           throw new Error("Network response was not ok");
         }
         const jsonData = await response.json();
-        setData(jsonData.comments || []); 
+        setData(jsonData.comments || []);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError(error);
@@ -59,7 +59,7 @@ export default function RecipeList() {
 
               <p className={classes.cardCategory}>Category: {item.category}</p>
               <Link href={`/recipe/${item._id}`}>
-                    <ViewRecipeBtn />
+                <ViewRecipeBtn />
               </Link>
               <ArrowIpIcon />
             </div>

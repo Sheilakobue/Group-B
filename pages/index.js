@@ -1,6 +1,5 @@
 //import { Image } from "next/image";
 import Link from "next/link";
-import MainNav from "@/components/layout/main-nav";
 import Head from "next/head";
 import { Fragment } from "react";
 
@@ -20,7 +19,7 @@ const Home = () => {
         />
       </Head>
 
-      <MainNav />
+     
       <main className="homeContainer">
         <div
           className="mainContent"
