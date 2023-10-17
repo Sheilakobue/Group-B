@@ -1,7 +1,7 @@
-//import { Image } from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 import { Fragment } from "react";
+
 
 const Home = () => {
   return (
@@ -12,14 +12,9 @@ const Home = () => {
           name="description"
           content="Explore food from around the world..."
         />
-        <link
-          rel="icon"
-          type="image/png"
-          href="/recipe-book (1).png"
-        />
+        <link rel="icon" type="image/png" href="/recipe-book (1).png" />
       </Head>
 
-     
       <main className="homeContainer">
         <div
           className="mainContent"
@@ -50,7 +45,6 @@ const Home = () => {
       </main>
     </Fragment>
   );
-}
-
+};
 
 export default Home;

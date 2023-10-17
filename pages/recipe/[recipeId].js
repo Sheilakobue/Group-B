@@ -1,9 +1,13 @@
-import React from 'react'
 
 export default function RecipeDetailPage() {
+ 
+
   return (
     <div>
-      <h1>Recipe detail</h1>
+      
+        <h1>Recipe Detail Page</h1>
+
+  
     </div>
-  )
+  );
 }

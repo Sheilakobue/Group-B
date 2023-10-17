@@ -3,10 +3,14 @@ import Head from "next/head";
 import { Fragment } from "react";
 //import { useRouter } from 'next/router';
 import RecipeList from "@/components/recipes/recipe-list";
-import LoadMore from "@/components/home-page/show-more";
 import ArrowIpIcon from "@/components/icons&Buttons/arrow-up-icon";
 
-export default function AllRecipes() {
+import { run } from "../api/mongodb";
+import { run1 } from "../api/mongodb";
+//import { EXPORT_DETAIL } from "next/dist/shared/lib/constants";
+
+export default function AllRecipes(props) {
+  console.log(props.allergens);
   return (
     <Fragment>
       <Head>
@@ -17,9 +21,20 @@ export default function AllRecipes() {
         />
         <link rel="icon" type="image/png" href="/recipe-book (1).png" />
       </Head>
-      <RecipeList />
-      <LoadMore />
+      <RecipeList data={props.data} />
+   
       <ArrowIpIcon />
     </Fragment>
   );
+}
+
+export async function getServerSideProps() {
+  const data = await run(1);
+  const allergens = await run1();
+  return {
+    props: {
+      data: data,
+      allergens: allergens[0],
+    },
+  };
 }

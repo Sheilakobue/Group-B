@@ -1,6 +1,6 @@
-import '@/styles/globals.css'
-import Head from 'next/head';
-import Layout from '@/components/layout/layout';
+import "@/styles/globals.css";
+import Head from "next/head";
+import Layout from "@/components/layout/layout";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }) {
           content="Explore food from around the world..."
         />
         <link rel="icon" type="image/png" href="/recipe-book (1).png" />
-      </Head>   
+      </Head>
       <Component {...pageProps} />
     </Layout>
   );
