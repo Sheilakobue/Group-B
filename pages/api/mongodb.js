@@ -49,3 +49,11 @@ export async function run1() {
     await client.close();
   }
 }
+
+export async function getRecipeById(id) {
+  await client.connect();
+  const db = client.db("devdb");
+
+  const collection = db.collection("recipes");
+  return collection.findOne({ _id: id });
+}

@@ -6,11 +6,10 @@ import RecipeList from "@/components/recipes/recipe-list";
 import ArrowIpIcon from "@/components/icons&Buttons/arrow-up-icon";
 
 import { run } from "../api/mongodb";
-import { run1 } from "../api/mongodb";
 //import { EXPORT_DETAIL } from "next/dist/shared/lib/constants";
 
 export default function AllRecipes(props) {
-  console.log(props.allergens);
+  
   return (
     <Fragment>
       <Head>
@@ -30,11 +29,11 @@ export default function AllRecipes(props) {
 
 export async function getServerSideProps() {
   const data = await run(1);
-  const allergens = await run1();
+
   return {
     props: {
       data: data,
-      allergens: allergens[0],
+      
     },
   };
 }

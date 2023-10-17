@@ -1,9 +1,11 @@
 import React from 'react'
+import classes from './show-more.module.css'
+
 
 export default function ShowMoreButton () {
   return (
     <div>
-      <h1>Show more button</h1>
+      <button className={classes.btn}>Show more button</button>
     </div>
-  )
+  );
 }

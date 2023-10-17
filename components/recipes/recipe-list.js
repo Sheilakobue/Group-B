@@ -1,16 +1,19 @@
 import React from "react";
+import Link from "next/link";
 import classes from "../recipes/recipe-list.module.css"
 import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
+import ShowMoreButton from "../icons&Buttons/show-more";
 
 function RecipeList({ data }) {
 
+  
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>Recipes</h1>
       <div className={classes.cardContainer}>
         {data.map((recipe, index) => (
           <div key={index} className={classes.card}>
-            <div className={ classes.cardImageContainer}>
+            <div className={classes.cardImageContainer}>
               <img
                 src={recipe.images[0]}
                 alt={recipe.title}
@@ -22,12 +25,15 @@ function RecipeList({ data }) {
               <p className={classes.cardCategory}>
                 Category: {recipe.category}
               </p>
-              <ViewRecipeBtn/>
+              <Link href={`/recipe/${recipe._id}`}>
+                <ViewRecipeBtn />
+              </Link>
             </div>
-            
           </div>
         ))}
       </div>
+      <br></br>
+      <ShowMoreButton />
     </div>
   );
 }
