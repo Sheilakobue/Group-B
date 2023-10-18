@@ -1,0 +1,13 @@
+
+.scroll-arrows-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+   
+}
+
+.scroll-arrow {
+    cursor: pointer;
+    margin-bottom: 10px;
+}

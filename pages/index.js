@@ -12,7 +12,7 @@ const Home = () => {
           name="description"
           content="Explore food from around the world..."
         />
-        <link rel="icon" type="image/png" href="/recipe-book (1).png" />
+        
       </Head>
 
       <main className="homeContainer">

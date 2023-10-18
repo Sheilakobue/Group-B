@@ -7,19 +7,15 @@ import { FaUser, FaEnvelope, FaHome } from "react-icons/fa";
 const MainNav = () => {
   return (
     <header className={classes.header}>
-        <div className={classes.icon}>
-          <Image 
-            src="/recipe2.png"
-            alt="GroupB Logo"
-            width={40} 
-            height={40} 
-          />
-          
-        </div>
-     
-      <Link className={classes.icon} href="/" title="Home">
-        <FaHome />
-      </Link>
+      <div className={classes.icon}>
+        <Link className={classes.icon} href="/" title="Home">
+          <FaHome />
+        </Link>
+      </div>
+      <div className={classes.icon}>
+        <h1>GroupB</h1>
+      </div>
+
       <nav>
         <ul>
           <li>

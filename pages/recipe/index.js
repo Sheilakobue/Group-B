@@ -18,10 +18,10 @@ export default function AllRecipes(props) {
           name="description"
           content="Explore food from around the world..."
         />
-        <link rel="icon" type="image/png" href="/recipe-book (1).png" />
+        <h1>GroupB recipes</h1>
       </Head>
       <RecipeList data={props.data} />
-   
+
       <ArrowIpIcon />
     </Fragment>
   );

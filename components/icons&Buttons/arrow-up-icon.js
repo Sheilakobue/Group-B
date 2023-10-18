@@ -1,5 +1,6 @@
 import React from "react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import "./arrow-up-icon.module.css"
 
 export default function ScrollArrows() {
   const handleScroll = (direction) => {
