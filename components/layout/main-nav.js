@@ -2,18 +2,14 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import classes from "./main-nav.module.css";
+import { MdStars } from "react-icons/Md";
 import { FaUser, FaEnvelope} from "react-icons/fa";
 
 const MainNav = () => {
   return (
     <header className={classes.header}>
       <Link href="/" title="Home">
-        <Image
-          src="/Logo.png"
-          alt="GroupB Logo"
-          width={80}
-          height={80}
-        />
+        <Image src="/Logo.png" alt="GroupB Logo" width={80} height={80} />
       </Link>
       <nav>
         <ul>
@@ -23,17 +19,22 @@ const MainNav = () => {
             </Link>
           </li>
           <li>
-            <Link className={classes.icon} href="/about-us" title="About us">
+            <Link className={classes.icon} href="/recipe/AboutUs" title="About us">
               <FaUser />
+            </Link>
+          </li>
+          <li>
+            <Link className={classes.icon} href="/recipe/Contact" title="Contact">
+              <FaEnvelope />
             </Link>
           </li>
           <li>
             <Link
               className={classes.icon}
-              href="/contact"
-              title="Contact"
+              href="/recipe/favorite"
+              title="Favorite"
             >
-              <FaEnvelope />
+              <MdStars />
             </Link>
           </li>
         </ul>

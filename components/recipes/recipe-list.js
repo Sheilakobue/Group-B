@@ -3,8 +3,8 @@ import Link from "next/link";
 import classes from "../recipes/recipe-list.module.css";
 import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
 import ShowMoreButton from "../icons&Buttons/show-more";
-import Favorite from "../icons&Buttons/favorite";
-//import Carousel from "../home-page/carousel";
+import FavoriteBtn from "../icons&Buttons/favoriteBtn";
+import Carousel from "@/components/home-page/carousel";
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +20,7 @@ function RecipeList({ data }) {
   return (
     <div className={classes.container}>
     <div className={classes.carousel}>
-  
+    <Carousel/>
     </div>
       <h1 className={classes.title}>Recipes</h1>
 
@@ -43,7 +43,7 @@ function RecipeList({ data }) {
                 <Link href={`/recipe/${recipe._id}`}>
                   <ViewRecipeBtn />
                 </Link>
-                <Favorite />
+                <FavoriteBtn />
               </div>
             </div>
           </div>

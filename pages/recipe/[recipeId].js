@@ -5,13 +5,9 @@ import { formatTime } from "@/helpers/time-util";
 import UpdateDescription from "@/components/Updates/UpdateDescription";
 import UpdateInstructions from "@/components/Updates/UpdateInstructions";
 import { run1 } from "../api/mongodb";
-import Favorite from "@/components/icons&Buttons/favorite";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
-  const [instructionsVisible, setInstructionsVisible] = useState(false);
-  const [ingredientsVisible, setIngredientsVisible] = useState(false);
 
   const ingredientsArray = Object.entries(recipe.ingredients).map(
     ([ingredient, amount]) => `${ingredient}: ${amount} `
@@ -116,48 +112,34 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <p>{tags}</p>
           )}
 
-          <button
-            className="btn"
-            onClick={() => setInstructionsVisible(!instructionsVisible)}
-          >
-            {instructionsVisible ? "Hide Instructions" : "Show Instructions"}
-          </button>
+          <h1 className={styles.title}>Instructions:</h1>
 
-          {instructionsVisible && (
-            <div>
-              <h1 className={styles.title}>Instructions:</h1>
-              {isEditingInstructions ? (
-                <UpdateInstructions
-                  initialInstructions={instructionsArray.join("\n")}
-                  onSave={handleSaveInstructions}
-                />
-              ) : (
-                <ol className={styles.instructions}>
-                  {editedInstructions.map((step, index) => (
-                    <li key={index}>{step}</li>
-                  ))}
-                </ol>
-              )}
-            </div>
+          {isEditingInstructions ? (
+            <UpdateInstructions
+              initialInstructions={instructionsArray.join("\n")}
+              onSave={handleSaveInstructions}
+            />
+          ) : (
+            <ol className={styles.instructions}>
+              {editedInstructions.map((step, index) => (
+                <li key={index}>{step}</li>
+              ))}
+            </ol>
           )}
 
           <button
             className="btn"
-            onClick={() => setIngredientsVisible(!ingredientsVisible)}
+            onClick={() => setIsEditingInstructions(!isEditingInstructions)}
           >
-            {ingredientsVisible ? "Hide Ingredients" : "Show Ingredients"}
+            {isEditingInstructions ? "Cancel" : "Update Instructions"}
           </button>
 
-          {ingredientsVisible && (
-            <div>
-              <h3 className={styles.title}>Ingredients:</h3>
-              <ul>
-                {ingredientsArray.map((ingredient, index) => (
-                  <li key={index}>{ingredient}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <h3 className={styles.title}>Ingredients:</h3>
+          <ul>
+            {ingredientsArray.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
 
           <h1 className={styles.title}>Preparation Time:</h1>
           <p>{formatTime(recipe.prep)}</p>
@@ -165,9 +147,6 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           <p>{formatTime(recipe.cook)}</p>
           <h1 className={styles.title}>Total Time:</h1>
           <p>{formatTime(recipe.cook + recipe.prep)}</p>
-        </div>
-        <div className={styles.favoritePerRecipe}>
-          <Favorite />
         </div>
       </div>
     </Fragment>
