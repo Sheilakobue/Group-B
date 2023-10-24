@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
           name="description"
           content="Explore food from around the world..."
         />
-      
+        
       </Head>
       <Component {...pageProps} />
     </Layout>

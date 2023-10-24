@@ -1,14 +1,11 @@
-import React from "react";
-import classes from "./show-more.module.css";
+import React from 'react'
+import classes from './show-more.module.css'
 
-const ShowMoreButton = ({ remainingRecipes, onClick }) => {
+
+export default function ShowMoreButton ({ remainingRecipes, onClick }) {
   return (
-    <div>
-      <button className={classes.ShowMoreBtn} onClick={onClick}>
-        Show more ({remainingRecipes} )
-      </button>
-    </div>
+    <button className={classes.btn} onClick={onClick}>
+      ShowMore ({remainingRecipes} )
+    </button>
   );
-};
-
-export default ShowMoreButton;
+}

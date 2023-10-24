@@ -1,20 +1,11 @@
 import Link from "next/link";
-import Head from "next/head";
 import { Fragment } from "react";
 
-
 const Home = () => {
+  
   return (
     <Fragment>
-      <Head>
-        <title>All Recipes</title>
-        <meta
-          name="description"
-          content="Explore food from around the world..."
-        />
-        
-      </Head>
-
+      
       <main className="homeContainer">
         <div
           className="mainContent"
