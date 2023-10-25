@@ -2,8 +2,9 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import classes from "./main-nav.module.css";
-import { MdStars } from "react-icons/Md";
+import { MdStars } from "react-icons/md";
 import { FaUser, FaEnvelope} from "react-icons/fa";
+import {HiOutlineHeart} from "react-icons/hi";
 
 const MainNav = () => {
   return (
@@ -19,22 +20,30 @@ const MainNav = () => {
             </Link>
           </li>
           <li>
-            <Link className={classes.icon} href="/recipe/AboutUs" title="About us">
+            <Link
+              className={classes.icon}
+              href="/recipe/AboutUs"
+              title="About us"
+            >
               <FaUser />
             </Link>
           </li>
           <li>
-            <Link className={classes.icon} href="/recipe/Contact" title="Contact">
+            <Link
+              className={classes.icon}
+              href="/recipe/Contact"
+              title="Contact"
+            >
               <FaEnvelope />
             </Link>
           </li>
           <li>
             <Link
               className={classes.icon}
-              href="/recipe/favorite"
+              href="/recipe/favoritePage"
               title="Favorite"
             >
-              <MdStars />
+              <HiOutlineHeart/>
             </Link>
           </li>
         </ul>

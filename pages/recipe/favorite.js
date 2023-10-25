@@ -1,5 +1,4 @@
 import React from 'react'
-//import FavoritePage from '@/components/recipes/favoritePage'
 
 export default function Favorite() {
   return (

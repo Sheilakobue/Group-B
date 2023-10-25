@@ -1,24 +1,23 @@
-import React, { Fragment, useState, useEffect } from "react";
-import styles from "./RecipeDetailPage.module.css";
-import { getRecipeById } from "../api/mongodb";
-import { formatTime } from "@/helpers/time-util";
-import UpdateDescription from "@/components/Updates/UpdateDescription";
-import UpdateInstructions from "@/components/Updates/UpdateInstructions";
-import { run1 } from "../api/mongodb";
+import React, { Fragment, useState, useEffect } from 'react';
+import styles from './RecipeDetailPage.module.css';
+import { getRecipeById } from '../api/mongodb';
+import { formatTime } from '@/helpers/time-util';
+import UpdateDescription from '@/components/Updates/UpdateDescription';
+import UpdateInstructions from '@/components/Updates/UpdateInstructions';
+import { run1 } from '../api/mongodb';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
-export default function RecipeDetailPage({ recipe, error, allergens }) {
+export default function RecipeDetailPage({ recipe, error , allergens }) {
   const [tagsError, setTagsError] = useState(false);
 
-  const ingredientsArray = Object.entries(recipe.ingredients).map(
-    ([ingredient, amount]) => `${ingredient}: ${amount} `
-  );
+  const  ingredientsArray = Object.entries(recipe.ingredients).map(([ingredient , amount]) => `${ingredient}: ${amount} `);
 
-  const allergensForRecipe = allergens.filter((allergen) =>
-    ingredientsArray.some((ingredient) => ingredient.includes(allergen))
+  const allergensForRecipe = allergens.filter(allergen =>
+    ingredientsArray.some(ingredient => ingredient.includes(allergen))
   );
 
   useEffect(() => {
-    if (error && error.message === "Failed to load tags") {
+    if (error && error.message === 'Failed to load tags') {
       setTagsError(true);
     }
   }, [error]);
@@ -27,6 +26,8 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     return <div>Error loading recipe details.</div>;
   }
 
+  
+
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([]);
 
@@ -34,8 +35,8 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     if (recipe) {
       if (Array.isArray(recipe.instructions)) {
         setEditedInstructions(recipe.instructions);
-      } else if (typeof recipe.instructions === "string") {
-        setEditedInstructions(recipe.instructions.split("\n"));
+      } else if (typeof recipe.instructions === 'string') {
+        setEditedInstructions(recipe.instructions.split('\n'));
       } else {
         setEditedInstructions([]);
       }
@@ -44,17 +45,15 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
   const handleSaveInstructions = (updatedInstructions) => {
     let updatedInstructionsArray = [];
-    if (typeof updatedInstructions === "string") {
-      updatedInstructionsArray = updatedInstructions.split("\n");
+    if (typeof updatedInstructions === 'string') {
+      updatedInstructionsArray = updatedInstructions.split('\n');
     }
     setEditedInstructions(updatedInstructionsArray);
     setIsEditingInstructions(false);
   };
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
-  const [editedDescription, setEditedDescription] = useState(
-    recipe.description
-  );
+  const [editedDescription, setEditedDescription] = useState(recipe.description);
 
   const handleSaveDescription = (updatedDescription) => {
     setEditedDescription(updatedDescription);
@@ -63,13 +62,11 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
   const instructionsArray = Array.isArray(recipe.instructions)
     ? recipe.instructions
-    : typeof recipe.instructions === "string"
-    ? recipe.instructions.split("\n")
+    : typeof recipe.instructions === 'string'
+    ? recipe.instructions.split('\n')
     : [];
 
-  const tags = Array.isArray(recipe.tags)
-    ? recipe.tags.join(", ")
-    : recipe.tags;
+  const tags = Array.isArray(recipe.tags) ? recipe.tags.join(', ') : recipe.tags;
 
   return (
     <Fragment>
@@ -79,18 +76,17 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           <h1 className={styles.title}>{recipe.title}</h1>
 
           {isEditingDescription ? (
-            <UpdateDescription
-              initialDescription={editedDescription}
-              onSave={handleSaveDescription}
-            />
+            <UpdateDescription initialDescription={editedDescription} onSave={handleSaveDescription} />
           ) : (
             <p>{editedDescription}</p>
           )}
 
-          <h1 className={styles.title}>Allergens:</h1>
+          <AddToFavoritesButton />
+
+        <h1 className={styles.title}>Allergens:</h1>
           {allergensForRecipe.length > 0 ? (
             <ul>
-              {allergensForRecipe.map((allergen, index) => (
+              {allergensForRecipe.map((allergen, index) =>(
                 <li key={index}>{allergen}</li>
               ))}
             </ul>
@@ -98,11 +94,8 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <p>No Allergens present in this recipe.</p>
           )}
 
-          <button
-            className="btn"
-            onClick={() => setIsEditingDescription(!isEditingDescription)}
-          >
-            {isEditingDescription ? "Cancel" : "Update Description"}
+          <button className="btn" onClick={() => setIsEditingDescription(!isEditingDescription)}>
+            {isEditingDescription ? 'Cancel' : 'Update Description'}
           </button>
 
           <h1 className={styles.title}>Tags:</h1>
@@ -116,7 +109,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
           {isEditingInstructions ? (
             <UpdateInstructions
-              initialInstructions={instructionsArray.join("\n")}
+              initialInstructions={instructionsArray.join('\n')}
               onSave={handleSaveInstructions}
             />
           ) : (
@@ -127,19 +120,16 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             </ol>
           )}
 
-          <button
-            className="btn"
-            onClick={() => setIsEditingInstructions(!isEditingInstructions)}
-          >
-            {isEditingInstructions ? "Cancel" : "Update Instructions"}
+          <button className="btn" onClick={() => setIsEditingInstructions(!isEditingInstructions)}>
+            {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
           </button>
 
           <h3 className={styles.title}>Ingredients:</h3>
-          <ul>
-            {ingredientsArray.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
+            <ul>
+              {ingredientsArray.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
 
           <h1 className={styles.title}>Preparation Time:</h1>
           <p>{formatTime(recipe.prep)}</p>
@@ -161,10 +151,10 @@ export const getServerSideProps = async ({ params }) => {
     const docs1 = await run1();
 
     if (!Recipe || !Recipe.instructions) {
-      throw new Error("Failed to load instructions.");
+      throw new Error('Failed to load instructions.');
     }
     if (!Recipe || !Recipe.tags) {
-      throw new Error("Failed to load tags");
+      throw new Error('Failed to load tags');
     }
     return {
       props: {

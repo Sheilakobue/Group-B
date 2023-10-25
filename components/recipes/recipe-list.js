@@ -3,8 +3,7 @@ import Link from "next/link";
 import classes from "../recipes/recipe-list.module.css";
 import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
 import ShowMoreButton from "../icons&Buttons/show-more";
-import FavoriteBtn from "../icons&Buttons/favoriteBtn";
-import Carousel from "@/components/home-page/carousel";
+import AddToFavHeart from "../icons&Buttons/add-to-favHeart"; 
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,9 +18,6 @@ function RecipeList({ data }) {
 
   return (
     <div className={classes.container}>
-    <div className={classes.carousel}>
-    <Carousel/>
-    </div>
       <h1 className={classes.title}>Recipes</h1>
 
       <div className={classes.cardContainer}>
@@ -39,12 +35,10 @@ function RecipeList({ data }) {
               <p className={classes.cardCategory}>
                 Category: {recipe.category}
               </p>
-              <div className={classes.cardActions}>
-                <Link href={`/recipe/${recipe._id}`}>
-                  <ViewRecipeBtn />
-                </Link>
-                <FavoriteBtn />
-              </div>
+              <Link href={`/recipe/${recipe._id}`}>
+                <ViewRecipeBtn />
+              </Link>
+              <AddToFavHeart />
             </div>
           </div>
         ))}

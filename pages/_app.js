@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
           name="description"
           content="Explore food from around the world..."
         />
-        
+        <link rel="icon" type="image/png" href="/recipe-book (1).png" />
       </Head>
       <Component {...pageProps} />
     </Layout>

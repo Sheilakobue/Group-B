@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function carousel() {
+export default function FavoritePage() {
   return (
     <div>
-      <h1>Carousel</h1>
+      <h1>Favorite</h1>
     </div>
   )
 }

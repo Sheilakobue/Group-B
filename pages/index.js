@@ -1,11 +1,20 @@
 import Link from "next/link";
-import { Fragment } from "react";
+import Head from "next/head";
+import { Fragment, useState, useEffect } from "react";
 
 const Home = () => {
   
   return (
     <Fragment>
-      
+      <Head>
+        <title>All Recipes</title>
+        <meta
+          name="description"
+          content="Explore food from around the world..."
+        />
+        <link rel="icon" type="image/png" href="/recipe-book (1).png" />
+      </Head>
+
       <main className="homeContainer">
         <div
           className="mainContent"

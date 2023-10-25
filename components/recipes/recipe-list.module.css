@@ -56,10 +56,3 @@
 .cardCategory {
     color: #FFFFFF;
 }
-
-.cardActions {
-    display: flex;
-    justify-content: space-between;
-   
-    align-items: center;
-}
