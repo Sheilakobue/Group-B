@@ -1,8 +1,7 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
 
-dotenv.config();
-
+dotenv.config();       
 let client;
 
 export async function connectToMongo() {
@@ -15,6 +14,8 @@ export async function connectToMongo() {
     },
   });
 
+  // Define a helper function to connect and handle errors
+
   try {
     await client.connect();
     console.log("Connected to MongoDB");
@@ -24,6 +25,7 @@ export async function connectToMongo() {
   }
 }
 
+// Define a helper function to close the connection
 export async function closeMongoConnection() {
   try {
     await client.close();
@@ -36,3 +38,4 @@ export async function closeMongoConnection() {
 export function getClient() {
   return client;
 }
+

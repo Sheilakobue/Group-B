@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { FaCalendar, FaHourglass, FaClock } from "react-icons/fa";
 import classes from "../recipes/recipe-list.module.css";
 import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
 import ShowMoreButton from "../icons&Buttons/show-more";
 import { formatDate } from "@/helpers/date-util";
 import { formatTime } from "@/helpers/time-util";
-import Sort from "./sort"; 
-import AddToFavHeart from "../icons&Buttons/add-to-favHeart"; 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCalendar, faClock,faHourglass} from "@fortawesome/free-solid-svg-icons";
-
+import Sort from "./sort";
+import AddToFavHeart from "../icons&Buttons/add-to-favHeart";
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,7 +23,6 @@ function RecipeList({ data }) {
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
-
   let displayedRecipes = data.slice(0, currentPage * recipesPerPage);
 
   switch (sortOrder) {
@@ -53,8 +50,7 @@ function RecipeList({ data }) {
       <h1 className={classes.title}>RECIPES</h1>
 
       <Sort onSort={handleSort} />
-      <b/>
-
+      <br />
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
           <div key={index} className={classes.card}>
@@ -65,22 +61,26 @@ function RecipeList({ data }) {
                 className={classes.cardImage}
               />
             </div>
+
             <div className={classes.cardContent}>
               <h2 className={classes.cardTitle}>{recipe.title}</h2>
-              <p className={classes.cardCategory}>
-                Category: {recipe.category}
-              </p>
 
-              {/* Replace date, prep, and cook with respective FontAwesome icons */}
-              <p className={classes.cardCategory}>
-                <FontAwesomeIcon icon={faCalendar} />{" "}
+              <p
+                className={classes.cardCategory}
+                title={`Date: ${formatDate(recipe.published)}`}
+              >
+                <FaCalendar style={{ fontSize: "1.5em" }} />
                 {formatDate(recipe.published)}
               </p>
+
               <p className={classes.cardCategory}>
-                <FontAwesomeIcon icon={faHourglass} /> {formatTime(recipe.prep)}
+                <FaHourglass style={{ fontSize: "1.5em" }} />{" "}
+                {formatTime(recipe.prep)}
               </p>
+
               <p className={classes.cardCategory}>
-                <FontAwesomeIcon icon={faClock} /> {formatTime(recipe.cook)}
+                <FaClock style={{ fontSize: "1.5em" }} />{" "}
+                {formatTime(recipe.cook)}
               </p>
 
               <Link href={`/recipe/${recipe._id}`}>
