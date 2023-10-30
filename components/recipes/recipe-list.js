@@ -3,22 +3,57 @@ import Link from "next/link";
 import classes from "../recipes/recipe-list.module.css";
 import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
 import ShowMoreButton from "../icons&Buttons/show-more";
+import { formatDate } from "@/helpers/date-util";
+import { formatTime } from "@/helpers/time-util";
+import Sort from "./sort"; 
 import AddToFavHeart from "../icons&Buttons/add-to-favHeart"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faCalendar, faClock,faHourglass} from "@fortawesome/free-solid-svg-icons";
+
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortOrder, setSortOrder] = useState("default");
   const recipesPerPage = 50;
+
+  const handleSort = (order) => {
+    setSortOrder(order);
+  };
 
   const handleShowMore = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
-  const displayedRecipes = data.slice(0, currentPage * recipesPerPage);
+
+  let displayedRecipes = data.slice(0, currentPage * recipesPerPage);
+
+  switch (sortOrder) {
+    case "newest":
+      displayedRecipes.sort(
+        (a, b) => new Date(b.published) - new Date(a.published)
+      );
+      break;
+    case "cook-asc":
+      displayedRecipes.sort((a, b) => a.cook - b.cook);
+      break;
+    case "cook-desc":
+      displayedRecipes.sort((a, b) => b.cook - a.cook);
+      break;
+    case "prep-asc":
+      displayedRecipes.sort((a, b) => a.prep - b.prep);
+      break;
+    case "prep-desc":
+      displayedRecipes.sort((a, b) => b.prep - a.prep);
+      break;
+  }
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>Recipes</h1>
+      <h1 className={classes.title}>RECIPES</h1>
+
+      <Sort onSort={handleSort} />
+      <b/>
 
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
@@ -35,6 +70,19 @@ function RecipeList({ data }) {
               <p className={classes.cardCategory}>
                 Category: {recipe.category}
               </p>
+
+              {/* Replace date, prep, and cook with respective FontAwesome icons */}
+              <p className={classes.cardCategory}>
+                <FontAwesomeIcon icon={faCalendar} />{" "}
+                {formatDate(recipe.published)}
+              </p>
+              <p className={classes.cardCategory}>
+                <FontAwesomeIcon icon={faHourglass} /> {formatTime(recipe.prep)}
+              </p>
+              <p className={classes.cardCategory}>
+                <FontAwesomeIcon icon={faClock} /> {formatTime(recipe.cook)}
+              </p>
+
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
@@ -43,9 +91,8 @@ function RecipeList({ data }) {
           </div>
         ))}
       </div>
-      <br></br>
+      <br />
       <div>
-        {" "}
         {remainingRecipes > 0 && (
           <ShowMoreButton
             remainingRecipes={remainingRecipes}
