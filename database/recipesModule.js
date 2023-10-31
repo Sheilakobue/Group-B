@@ -1,8 +1,9 @@
 import { connectToMongo, closeMongoConnection, getClient } from "../pages/api/mongodb";
 
-export async function run(page) {
+export async function AllRecipesPreview(page) {
   await connectToMongo();
   const client = getClient();
+  
 
   try {
     const db = client.db("devdb");

@@ -4,7 +4,7 @@ import { getRecipeById } from '../../database/recipesModule';
 import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
-import { run1 } from '../../database/allergensModule';
+import { AllergensPage } from "../../database/allergensModule";
 import RecipeTags from '@/components/home-page/recipe-tags';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
@@ -15,6 +15,14 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   const allergensForRecipe = allergens.filter((allergen) =>
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
+  const [favorites, setFavorites] = useState([]);
+  
+  const addToFavorites = (recipe) => {
+  if (!favorites.some((favRecipe) => favRecipe.id === recipe.id)) {
+    setFavorites((prevFavorites) => [...prevFavorites, recipe]);
+  }
+};
+
 
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {
@@ -76,17 +84,25 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           <h1 className={styles.title}>{recipe.title}</h1>
 
           {/* Display RecipeTags component */}
-          <RecipeTags tags={recipe.tags} tagsError={tagsError} selectedTags={selectedTags} clearSelectedTags={clearSelectedTags} />
+          <RecipeTags
+            tags={recipe.tags}
+            tagsError={tagsError}
+            selectedTags={selectedTags}
+            clearSelectedTags={clearSelectedTags}
+          />
 
           {isEditingDescription ? (
-            <UpdateDescription initialDescription={editedDescription} onSave={handleSaveDescription} />
+            <UpdateDescription
+              initialDescription={editedDescription}
+              onSave={handleSaveDescription}
+            />
           ) : (
             <p>{editedDescription}</p>
           )}
 
-          <AddToFavoritesButton />
+          <AddToFavoritesButton onClick={() => addToFavorites(recipe)} />
 
-        <h1 className={styles.title}>Allergens:</h1>
+          <h1 className={styles.title}>Allergens:</h1>
 
           {allergensForRecipe.length > 0 ? (
             <ul>
@@ -98,8 +114,11 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <p>No Allergens present in this recipe.</p>
           )}
 
-          <button className="btn" onClick={() => setIsEditingDescription(!isEditingDescription)}>
-            {isEditingDescription ? 'Cancel' : 'Update Description'}
+          <button
+            className="btn"
+            onClick={() => setIsEditingDescription(!isEditingDescription)}
+          >
+            {isEditingDescription ? "Cancel" : "Update Description"}
           </button>
 
           <h1 className={styles.title}>Tags:</h1>
@@ -109,7 +128,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <div>
               {/* Display selected tags */}
               {selectedTags.length > 0 ? (
-                <p>Selected Tags: {selectedTags.join(', ')}</p>
+                <p>Selected Tags: {selectedTags.join(", ")}</p>
               ) : (
                 <p>No tags selected.</p>
               )}
@@ -125,7 +144,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
           {isEditingInstructions ? (
             <UpdateInstructions
-              initialInstructions={instructionsArray.join('\n')}
+              initialInstructions={instructionsArray.join("\n")}
               onSave={handleSaveInstructions}
             />
           ) : (
@@ -136,8 +155,11 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             </ol>
           )}
 
-          <button className="btn" onClick={() => setIsEditingInstructions(!isEditingInstructions)}>
-            {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
+          <button
+            className="btn"
+            onClick={() => setIsEditingInstructions(!isEditingInstructions)}
+          >
+            {isEditingInstructions ? "Cancel" : "Update Instructions"}
           </button>
 
           <h3 className={styles.title}>Ingredients:</h3>
@@ -164,7 +186,7 @@ export const getServerSideProps = async ({ params }) => {
     const router = params;
     const { recipeId } = router;
     const Recipe = await getRecipeById(recipeId);
-    const docs1 = await run1();
+    const docs1 = await AllergensPage();
 
     if (!Recipe || !Recipe.instructions) {
       throw new Error('Failed to load instructions.');
