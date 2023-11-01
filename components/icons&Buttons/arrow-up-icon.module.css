@@ -7,7 +7,8 @@
    
 }
 
-.scroll-arrow {
+.scrollArrow {
     cursor: pointer;
     margin-bottom: 10px;
+    color:green;
 }

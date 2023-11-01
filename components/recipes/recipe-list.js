@@ -86,7 +86,7 @@ function RecipeList({ data }) {
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
-              <AddToFavHeart />
+              <AddToFavHeart className={classes.heart}/>
             </div>
           </div>
         ))}

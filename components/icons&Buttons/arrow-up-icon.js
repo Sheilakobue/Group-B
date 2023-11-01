@@ -1,5 +1,6 @@
 import React from "react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import classes from "./arrow-up-icon.module.css"
 
 export default function ScrollArrows() {
   const handleScroll = (direction) => {
@@ -20,15 +21,15 @@ export default function ScrollArrows() {
   };
 
   return (
-    <div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
+    <div style={{ position: 'fixed', bottom: '20px', right: '20px' }}>
       <div
-        style={{ cursor: "pointer", marginBottom: "10px" }}
-        onClick={() => handleScroll("up")}
+        style={{ cursor: 'pointer', marginBottom: '10px' }}
+        onClick={() => handleScroll('up')}
       >
-        <FaArrowUp />
+        <FaArrowUp className={classes.scrollArrow} />
       </div>
-      <div style={{ cursor: "pointer" }} onClick={() => handleScroll("down")}>
-        <FaArrowDown />
+      <div style={{ cursor: 'pointer' }} onClick={() => handleScroll('down')}>
+        <FaArrowDown className={classes.scrollArrow} />
       </div>
     </div>
   );

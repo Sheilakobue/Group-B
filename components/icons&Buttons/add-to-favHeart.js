@@ -7,6 +7,7 @@ function AddToFavoritesButton() {
 
   const toggleFavorite = () => {
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
+    
   };
 
   const buttonClasses = isFavorite ? `${styles.favoriteButton} ${styles.pulse}` : styles.favoriteButton;
@@ -14,9 +15,9 @@ function AddToFavoritesButton() {
   return (
     <button onClick={toggleFavorite} className={buttonClasses}>
       {isFavorite ? (
-        <HiOutlineHeart color="rgba(2,111,2,0.767)" size={30} />
+        <HiOutlineHeart color="red" size={30} />
       ) : (
-        <HiOutlineHeart color= "white" size={20}/>
+        <HiOutlineHeart color= "green" size={20}/>
       )}
     </button>
   );

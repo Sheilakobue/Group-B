@@ -1,4 +1,4 @@
-n.container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,4 +60,10 @@ n.container {
 
 .cardCategory {
     color: #565555;
+}
+
+.Pagination{
+    position: flex;
+    color:#100E0E;
+    
 }
