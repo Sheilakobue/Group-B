@@ -1,7 +1,7 @@
 // FavoritePage.js
 
 import React, { useState, useEffect } from 'react';
-import { getFavorites } from '../../database/favoriteModule';
+import { getFavorites } from '../api/database/favoriteModule';
 
 export default function FavoritePage() {
   const [favorites, setFavorites] = useState([]);

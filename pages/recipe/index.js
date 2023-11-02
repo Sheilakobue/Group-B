@@ -2,7 +2,7 @@ import React from "react";
 import { Fragment } from "react";
 import RecipeList from "@/components/recipes/recipe-list";
 import ArrowIpIcon from "@/components/icons&Buttons/arrow-up-icon";
-import { AllRecipesPreview } from "../../database/recipesModule";
+import { AllRecipesPreview } from "../api/database/recipesModule";
 
 export default function AllRecipes(props) {
   

@@ -1,37 +1,38 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import styles from '../recipe/RecipeDetailPage.module.css';
-import { getRecipeById } from '../../database/recipesModule';
+import { getRecipeById } from '../api/database/recipesModule';
 import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
-import { AllergensPage } from "../../database/allergensModule";
+import { AllergensPage } from '../api/database/allergensModule';
 import RecipeTags from '@/components/home-page/recipe-tags';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const ingredientsArray = Object.entries(recipe.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount} `);
+  const ingredientsArray = Object.entries(recipe.ingredients).map(
+    ([ingredient, amount]) => `${ingredient}: ${amount} `
+  );
   const allergensForRecipe = allergens.filter((allergen) =>
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
   const [favorites, setFavorites] = useState([]);
-  
-  const addToFavorites = (recipe) => {
-  if (!favorites.some((favRecipe) => favRecipe.id === recipe.id)) {
-    setFavorites((prevFavorites) => [...prevFavorites, recipe]);
-  }
-};
 
+  const addToFavorites = (recipe) => {
+    if (!favorites.some((favRecipe) => favRecipe.id === recipe.id)) {
+      setFavorites((prevFavorites) => [...prevFavorites, recipe]);
+    }
+  };
 
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {
       setTagsError(true);
-    } 
+    }
   }, [error]);
 
   const clearSelectedTags = () => {
-    setSelectedTags([]); 
+    setSelectedTags([]);
   };
 
   if (error) {
@@ -63,7 +64,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   };
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
-  const [editedDescription, setEditedDescription] = useState(recipe.description);
+  const [editedDescription, setEditedDescription] = useState(
+    recipe.description
+  );
 
   const handleSaveDescription = (updatedDescription) => {
     setEditedDescription(updatedDescription);
@@ -73,8 +76,8 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   const instructionsArray = Array.isArray(recipe.instructions)
     ? recipe.instructions
     : typeof recipe.instructions === 'string'
-      ? recipe.instructions.split('\n')
-      : [];
+    ? recipe.instructions.split('\n')
+    : [];
 
   return (
     <Fragment>
@@ -118,7 +121,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             className="btn"
             onClick={() => setIsEditingDescription(!isEditingDescription)}
           >
-            {isEditingDescription ? "Cancel" : "Update Description"}
+            {isEditingDescription ? 'Cancel' : 'Update Description'}
           </button>
 
           <h1 className={styles.title}>Tags:</h1>
@@ -128,7 +131,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <div>
               {/* Display selected tags */}
               {selectedTags.length > 0 ? (
-                <p>Selected Tags: {selectedTags.join(", ")}</p>
+                <p>Selected Tags: {selectedTags.join(', ')}</p>
               ) : (
                 <p>No tags selected.</p>
               )}
@@ -144,7 +147,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
           {isEditingInstructions ? (
             <UpdateInstructions
-              initialInstructions={instructionsArray.join("\n")}
+              initialInstructions={instructionsArray.join('\n')}
               onSave={handleSaveInstructions}
             />
           ) : (
@@ -159,7 +162,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             className="btn"
             onClick={() => setIsEditingInstructions(!isEditingInstructions)}
           >
-            {isEditingInstructions ? "Cancel" : "Update Instructions"}
+            {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
           </button>
 
           <h3 className={styles.title}>Ingredients:</h3>

@@ -1,8 +1,4 @@
-import {
-  connectToMongo,
-  closeMongoConnection,
-  getClient,
-} from '../pages/api/mongodb';
+import { connectToMongo, closeMongoConnection, getClient } from '../mongodb';
 
 // Function to retrieve favorite recipes
 export async function getFavorites() {

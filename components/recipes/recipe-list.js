@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FaCalendar, FaHourglass, FaClock } from "react-icons/fa";
 import classes from "../recipes/recipe-list.module.css";
 import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
-import ShowMoreButton from "../icons&Buttons/show-more";
+//import ShowMoreButton from "../icons&Buttons/show-more";
 import { formatDate } from "@/helpers/date-util";
 import { formatTime } from "@/helpers/time-util";
 import Sort from "./sort";
@@ -11,36 +11,53 @@ import AddToFavHeart from "../icons&Buttons/add-to-favHeart";
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortOrder, setSortOrder] = useState("default");
-  const recipesPerPage = 50;
+  const [sortOrder, setSortOrder] = useState('default');
+  const recipesPerPage = 10;
 
   const handleSort = (order) => {
     setSortOrder(order);
   };
 
-  const handleShowMore = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPageCount) {
+      setCurrentPage(page);
+    }
   };
 
-  const remainingRecipes = data.length - currentPage * recipesPerPage;
-  let displayedRecipes = data.slice(0, currentPage * recipesPerPage);
+  const remainingRecipes = data.length - (currentPage - 1) * recipesPerPage;
+
+  let displayedRecipes = data.slice(
+    (currentPage - 1) * recipesPerPage,
+    currentPage * recipesPerPage
+  );
+
+  // If there are remaining recipes, adjust the displayed recipes on the last page
+  if (remainingRecipes < recipesPerPage) {
+    displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
+  }
+
+  const totalPageCount = Math.ceil(data.length / recipesPerPage);
+  const pageNumbers = Array.from(
+    { length: totalPageCount },
+    (_, index) => index + 1
+  );
 
   switch (sortOrder) {
-    case "newest":
+    case 'newest':
       displayedRecipes.sort(
         (a, b) => new Date(b.published) - new Date(a.published)
       );
       break;
-    case "cook-asc":
+    case 'cook-asc':
       displayedRecipes.sort((a, b) => a.cook - b.cook);
       break;
-    case "cook-desc":
+    case 'cook-desc':
       displayedRecipes.sort((a, b) => b.cook - a.cook);
       break;
-    case "prep-asc":
+    case 'prep-asc':
       displayedRecipes.sort((a, b) => a.prep - b.prep);
       break;
-    case "prep-desc":
+    case 'prep-desc':
       displayedRecipes.sort((a, b) => b.prep - a.prep);
       break;
   }
@@ -69,36 +86,63 @@ function RecipeList({ data }) {
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
-                <FaCalendar style={{ fontSize: "1.5em" }} />
+                <FaCalendar style={{ fontSize: '1.5em' }} />
                 {formatDate(recipe.published)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaHourglass style={{ fontSize: "1.5em" }} />{" "}
+                <FaHourglass style={{ fontSize: '1.5em' }} />{' '}
                 {formatTime(recipe.prep)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: "1.5em" }} />{" "}
+                <FaClock style={{ fontSize: '1.5em' }} />{' '}
                 {formatTime(recipe.cook)}
               </p>
 
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
-              <AddToFavHeart className={classes.heart}/>
+              <AddToFavHeart className={classes.heart} />
             </div>
           </div>
         ))}
       </div>
       <br />
       <div>
-        {remainingRecipes > 0 && (
-          <ShowMoreButton
-            remainingRecipes={remainingRecipes}
-            onClick={handleShowMore}
-          />
+        {totalPageCount > 1 && (
+          <div className={classes.pagination}>
+            {currentPage > 1 && (
+              <span onClick={() => handlePageChange(currentPage - 1)}>
+                Previous
+              </span>
+            )}
+
+            {pageNumbers.map((page) => (
+              <span
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={page === currentPage ? classes.activePage : ''}
+              >
+                {page}
+              </span>
+            ))}
+
+            {currentPage < totalPageCount && (
+              <span onClick={() => handlePageChange(currentPage + 1)}>
+                Next
+              </span>
+            )}
+          </div>
         )}
+
+        <div className={classes.pageInfo}>
+          <p>
+            
+            {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
+            Page {currentPage} of {totalPageCount}.
+          </p>
+        </div>
       </div>
     </div>
   );
