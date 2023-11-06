@@ -12,7 +12,7 @@ import AddToFavHeart from "../icons&Buttons/add-to-favHeart";
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
-  const recipesPerPage = 10;
+  const recipesPerPage = 100;
 
   const handleSort = (order) => {
     setSortOrder(order);

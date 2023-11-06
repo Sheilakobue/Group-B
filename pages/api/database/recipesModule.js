@@ -1,10 +1,6 @@
-import {
-  connectToMongo,
-  closeMongoConnection,
-  getClient,
-} from '../mongodb';
+import { connectToMongo, closeMongoConnection, getClient } from "../mongodb";
 
-export async function AllRecipesPreview(page) {
+export async function RunAllRecipes(page) {
   await connectToMongo();
   const client = getClient();
 
@@ -12,7 +8,6 @@ export async function AllRecipesPreview(page) {
     const db = client.db('devdb');
     await db.command({ ping: 1 });
     const collection = db.collection('recipes');
-    
     const skip = (page - 1) * 100;
     const data = await collection.find({}).skip(skip).limit(100).toArray();
     return data;
@@ -29,12 +24,12 @@ export async function getRecipeById(id) {
   const client = getClient();
 
   try {
-    const db = client.db('devdb');
-    const collection = db.collection('recipes');
+    const db = client.db("devdb");
+    const collection = db.collection("recipes");
     const result = await collection.findOne({ _id: id });
     return result;
   } catch (error) {
-    console.error('Failed to fetch data from MongoDB:', error);
+    console.error("Failed to fetch data from MongoDB:", error);
     return null;
   } finally {
     await closeMongoConnection();

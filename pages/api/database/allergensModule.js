@@ -1,6 +1,6 @@
 import { connectToMongo, closeMongoConnection, getClient } from '../mongodb';
 
-export async function AllergensPage() {
+export async function RunAllergens() {
   await connectToMongo();
   const client = getClient();
 

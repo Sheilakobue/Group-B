@@ -4,7 +4,7 @@ import { getRecipeById } from '../api/database/recipesModule';
 import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
-import { AllergensPage } from '../api/database/allergensModule';
+import { RunAllergens } from '../api/database/allergensModule';
 import RecipeTags from '@/components/home-page/recipe-tags';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
@@ -189,7 +189,7 @@ export const getServerSideProps = async ({ params }) => {
     const router = params;
     const { recipeId } = router;
     const Recipe = await getRecipeById(recipeId);
-    const docs1 = await AllergensPage();
+    const docs1 = await RunAllergens();
 
     if (!Recipe || !Recipe.instructions) {
       throw new Error('Failed to load instructions.');
