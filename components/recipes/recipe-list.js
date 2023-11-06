@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FaCalendar, FaHourglass, FaClock } from "react-icons/fa";
 import classes from "../recipes/recipe-list.module.css";
 import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
-//import ShowMoreButton from "../icons&Buttons/show-more";
+import ShowMoreButton from "../icons&Buttons/show-more";
 import { formatDate } from "@/helpers/date-util";
 import { formatTime } from "@/helpers/time-util";
 import Sort from "./sort";
@@ -23,6 +23,10 @@ function RecipeList({ data }) {
       setCurrentPage(page);
     }
   };
+
+   const handleShowMore = () => {
+     setCurrentPage((prevPage) => prevPage + 1);
+   };
 
   const remainingRecipes = data.length - (currentPage - 1) * recipesPerPage;
 
@@ -108,6 +112,17 @@ function RecipeList({ data }) {
           </div>
         ))}
       </div>
+
+      <br />
+      <div>
+        {remainingRecipes > 0 && (
+          <ShowMoreButton
+            remainingRecipes={remainingRecipes}
+            onClick={handleShowMore}
+          />
+        )}
+      </div>
+
       <br />
       <div>
         {totalPageCount > 1 && (
@@ -138,7 +153,6 @@ function RecipeList({ data }) {
 
         <div className={classes.pageInfo}>
           <p>
-            
             {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
             Page {currentPage} of {totalPageCount}.
           </p>

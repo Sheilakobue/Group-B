@@ -17,6 +17,7 @@ function Sort({ onSort }) {
         <option value="prep-desc">Sort by Preparation Time (Descending)</option>
       </select>
     </div>
+    
   );
 }
 
