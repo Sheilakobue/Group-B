@@ -1,18 +1,37 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { FaCalendar, FaHourglass, FaClock } from "react-icons/fa";
-import classes from "../recipes/recipe-list.module.css";
-import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
-import ShowMoreButton from "../icons&Buttons/show-more";
-import { formatDate } from "@/helpers/date-util";
-import { formatTime } from "@/helpers/time-util";
-import Sort from "./sort";
-import AddToFavHeart from "../icons&Buttons/add-to-favHeart";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
+import classes from './recipe-list.module.css';
+import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
+import ShowMoreButton from '../../components/icons&Buttons/show-more';
+import { formatDate } from '@/helpers/date-util';
+import { formatTime } from '@/helpers/time-util';
+import Sort from '../../components/recipes/sort';
+import AddToFavHeart from '@/components/icons&Buttons/add-to-favHeart';
 
-function RecipeList({ data }) {
+function RecipeList({ data,recipe }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
   const recipesPerPage = 100;
+
+   const addFavoritesHandler = async (recipe) => {
+     try {
+       const response = await fetch('/api/backend/addFavorite', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(recipe),
+       });
+
+       if (response.ok) {
+         console.log('Recipe added to favorites');
+       }
+     } catch (error) {
+       console.error('Error adding recipe to favorites:', error);
+     }
+   };
+
 
   const handleSort = (order) => {
     setSortOrder(order);
@@ -24,11 +43,12 @@ function RecipeList({ data }) {
     }
   };
 
-   const handleShowMore = () => {
-     setCurrentPage((prevPage) => prevPage + 1);
-   };
+  const handleShowMore = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
 
   const remainingRecipes = data.length - (currentPage - 1) * recipesPerPage;
+  const totalPages = Math.ceil(data.length / recipesPerPage);
 
   let displayedRecipes = data.slice(
     (currentPage - 1) * recipesPerPage,
@@ -90,7 +110,7 @@ function RecipeList({ data }) {
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
-                <FaCalendar style={{ fontSize: '1.5em' }} />
+                <FaCalendar size="1.5em" />
                 {formatDate(recipe.published)}
               </p>
 
@@ -107,7 +127,11 @@ function RecipeList({ data }) {
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
-              <AddToFavHeart className={classes.heart} />
+
+              <AddToFavHeart
+                className={classes.heart}
+                onClick={() => addFavoritesHandler(recipe)}
+              />
             </div>
           </div>
         ))}

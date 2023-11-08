@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import styles from "../icons&Buttons/add-to-favorite-btn.module.css"; 
-import { HiOutlineHeart } from "react-icons/hi";
+import React, { useState } from 'react';
+import styles from '../icons&Buttons/add-to-favorite-btn.module.css';
+import { HiOutlineHeart } from 'react-icons/hi';
 
 function AddToFavoritesButton() {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = () => {
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
-    
   };
 
-  const buttonClasses = isFavorite ? `${styles.favoriteButton} ${styles.pulse}` : styles.favoriteButton;
+  const buttonClasses = `${styles.favoriteButton} ${
+    isFavorite ? styles.pulse : ''
+  }`;
 
   return (
     <button onClick={toggleFavorite} className={buttonClasses}>
-      {isFavorite ? (
-        <HiOutlineHeart color="red" size={30} />
-      ) : (
-        <HiOutlineHeart color= "green" size={20}/>
-      )}
+      <HiOutlineHeart
+        color={isFavorite ? 'red' : 'green'}
+        size={isFavorite ? 30 : 20}
+      />
     </button>
   );
 }

@@ -1,12 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import styles from '../recipe/RecipeDetailPage.module.css';
-import { getRecipeById } from '../api/database/recipesModule';
+import { getRecipeById } from '../../helpers/database/recipesModule';
 import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
-import { RunAllergens } from '../api/database/allergensModule';
+import { RunAllergens } from '../../helpers/database/allergensModule';
 import RecipeTags from '@/components/home-page/recipe-tags';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+import Loading from '@/components/Loading/Loading';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
@@ -36,7 +37,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   };
 
   if (error) {
-    return <div>Error loading recipe details.</div>;
+    return <div>Error loading recipe details: {error.message}</div>;
   }
 
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
@@ -79,6 +80,11 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     ? recipe.instructions.split('\n')
     : [];
 
+  // Add a loading indicator
+  if (!recipe) {
+    return <Loading />;
+  }
+
   return (
     <Fragment>
       <div className={styles.container}>
@@ -103,7 +109,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <p>{editedDescription}</p>
           )}
 
-          <AddToFavoritesButton onClick={() => addToFavorites(recipe)} />
+          <div onClick={() => console.log('clicked2')}>
+            <AddToFavoritesButton recipe={recipe} />
+          </div>
 
           <h1 className={styles.title}>Allergens:</h1>
 
@@ -202,7 +210,7 @@ export const getServerSideProps = async ({ params }) => {
       props: {
         recipe: Recipe,
         allergens: docs1[0],
-        error: false,
+        error: null,
       },
     };
   } catch (error) {

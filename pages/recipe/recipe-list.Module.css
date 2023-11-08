@@ -62,7 +62,7 @@
     color: #565555;
 }
 
-/* recipe-list.module.css */
+/*pagination */
 
 .pagination {
   display: flex;
@@ -88,3 +88,5 @@
   background-color: #4caf50;
   color: white;
 }
+
+
