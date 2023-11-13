@@ -16,12 +16,21 @@ function FavoritesPage({ favs }) {
     console.log(favs);
   });
 
+  // Convert MongoDB ObjectID to string for serialization
+  const cleanedFavs = favs.map((fav) => {
+    return {
+      ...fav,
+      _id: fav._id.toString(),
+    };
+  });
+
   return (
     <section>
       <Link href={`/recipe`} passHref>
         <IoIosArrowBack title="Back to recipes" className={classes.favIcon} />
       </Link>
       <br />
+
       <h1 className={classes.fav}>Favorite</h1>
       {favs.length === 0 && (
         <p className={classes.message}>
@@ -35,7 +44,13 @@ function FavoritesPage({ favs }) {
           <RecipeDetailPage key={recipe._id} recipe={recipe} />
         ))}
       </section>
-      <RecipeList data={favs} />
+      <section>
+        {/* Display the list of favorite recipes */}
+        {favoriteRecipes.map((recipe) => (
+          <RecipeList key={recipe._id} recipe={recipe} />
+        ))}
+      </section>
+      <RecipeList data={cleanedFavs} />
     </section>
   );
 }

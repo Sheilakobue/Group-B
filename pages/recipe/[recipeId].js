@@ -18,13 +18,13 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   const allergensForRecipe = allergens.filter((allergen) =>
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
-  const [favorites, setFavorites] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
 
-  const addToFavorites = (recipe) => {
-    if (!favorites.some((favRecipe) => favRecipe.id === recipe.id)) {
-      setFavorites((prevFavorites) => [...prevFavorites, recipe]);
-    }
-  };
+  // const addToFavorites = (recipe) => {
+  //   if (!favorites.some((favRecipe) => favRecipe.id === recipe.id)) {
+  //     setFavorites((prevFavorites) => [...prevFavorites, recipe]);
+  //   }
+  // };
 
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {

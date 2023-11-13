@@ -3,34 +3,33 @@ import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
 import classes from './recipe-list.module.css';
 import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
-import ShowMoreButton from '../../components/icons&Buttons/show-more';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
 import Sort from '../../components/recipes/sort';
-import AddToFavHeart from '@/components/icons&Buttons/add-to-favHeart';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
-function RecipeList({ data,recipe }) {
+function RecipeList({ data,}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
   const recipesPerPage = 100;
 
-   const addFavoritesHandler = async (recipe) => {
-     try {
-       const response = await fetch('/api/backend/addFavorite', {
-         method: 'POST',
-         headers: {
-           'Content-Type': 'application/json',
-         },
-         body: JSON.stringify(recipe),
-       });
+  //  const addFavoritesHandler = async (recipe) => {
+  //    try {
+  //      const response = await fetch('/api/backend/addFavorite', {
+  //        method: 'POST',
+  //        headers: {
+  //          'Content-Type': 'application/json',
+  //        },
+  //        body: JSON.stringify(recipe),
+  //      });
 
-       if (response.ok) {
-         console.log('Recipe added to favorites');
-       }
-     } catch (error) {
-       console.error('Error adding recipe to favorites:', error);
-     }
-   };
+  //      if (response.ok) {
+  //        console.log('Recipe added to favorites');
+  //      }
+  //    } catch (error) {
+  //      console.error('Error adding recipe to favorites:', error);
+  //    }
+  //  };
 
 
   const handleSort = (order) => {
@@ -41,10 +40,6 @@ function RecipeList({ data,recipe }) {
     if (page >= 1 && page <= totalPageCount) {
       setCurrentPage(page);
     }
-  };
-
-  const handleShowMore = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   const remainingRecipes = data.length - (currentPage - 1) * recipesPerPage;
@@ -128,23 +123,12 @@ function RecipeList({ data,recipe }) {
                 <ViewRecipeBtn />
               </Link>
 
-              <AddToFavHeart
-                className={classes.heart}
-                onClick={() => addFavoritesHandler(recipe)}
-              />
+              <div>
+                <AddToFavoritesButton recipe={recipe} />
+              </div>
             </div>
           </div>
         ))}
-      </div>
-
-      <br />
-      <div>
-        {remainingRecipes > 0 && (
-          <ShowMoreButton
-            remainingRecipes={remainingRecipes}
-            onClick={handleShowMore}
-          />
-        )}
       </div>
 
       <br />

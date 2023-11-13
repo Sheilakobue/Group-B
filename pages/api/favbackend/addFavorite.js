@@ -27,7 +27,7 @@ import { addFavoritesFromMongoDB } from "@/helpers/mongodb";
 //   try {
 //     const userId = session.user.id;
 
-//     // Add user ID to the recipe object
+    // Add user ID to the recipe object
 //     const recipeWithUserId = { ...recipe, userId };
 
 //     await favoritesCollection.insertOne(recipeWithUserId);
@@ -39,34 +39,34 @@ import { addFavoritesFromMongoDB } from "@/helpers/mongodb";
 //   }
 // }
 
-// // export default handler;
+// export default handler;
 
-// //  export default async function handler(req, res){
-// //   if(req.method === 'POST'){
+//  export default async function handler(req, res){
+//   if(req.method === 'POST'){
 
-// //     const { recipe } = req.body;
-// //     const db = await connectToDatabase();
-// //     const favoritesCollection = db.collection('favorites');
+//     const { recipe } = req.body;
+//     const db = await connectToDatabase();
+//     const favoritesCollection = db.collection('favorites');
 
-// //     try{
-// //       const recipeWithUserId = { ...recipe, userId };
-// //       await favoritesCollection.insertOne(recipeWithUserId);
+//     try{
+//       const recipeWithUserId = { ...recipe, userId };
+//       await favoritesCollection.insertOne(recipeWithUserId);
 
-// //     }catch(error){
-// //       res.status(500).json({ error: 'Internal Server Error' });
-// //     }
-// //   }
-// //  }
+//     }catch(error){
+//       res.status(500).json({ error: 'Internal Server Error' });
+//     }
+//   }
+//  }
 // export default async function handler(req, res) {
-//   // if (req.method === 'POST') {
-//   //   try {
-//   //     const recipe = req.body.recipe; // Extract the recipe from the request body
-//   //     await addFavoriteToMongoDB(recipe);
-//   //     res.status(200).json({ message: 'added favorite' });
-//   //   } catch (error) {
-//   //     res.status(500).json({ error: 'Internal Server Error' });
-//   //   }
-//   // }
+  // if (req.method === 'POST') {
+  //   try {
+  //     const recipe = req.body.recipe; // Extract the recipe from the request body
+  //     await addFavoriteToMongoDB(recipe);
+  //     res.status(200).json({ message: 'added favorite' });
+  //   } catch (error) {
+  //     res.status(500).json({ error: 'Internal Server Error' });
+  //   }
+  // }
 
 //   if(req.method === 'POST'){
 

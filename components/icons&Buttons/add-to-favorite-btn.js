@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../icons&Buttons/add-to-favorite-btn.module.css';
+
 //is working
 function AddToFavoritesButton({ recipe }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -27,7 +28,7 @@ function AddToFavoritesButton({ recipe }) {
   return (
     <button onClick={toggleFavorite} className={buttonClasses}>
       {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-      {isFavorite ? ':heart:' : ':white_heart:'}
+      {isFavorite ? '❤️' : '🤍'}
     </button>
   );
 }
