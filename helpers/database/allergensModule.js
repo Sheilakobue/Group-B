@@ -15,6 +15,6 @@ export async function RunAllergens() {
     console.error('Failed to fetch data from MongoDB:', error);
     return [];
   } finally {
-    await closeMongoConnection();
+    // await closeMongoConnection();
   }
 }

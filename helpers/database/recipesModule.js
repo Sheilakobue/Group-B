@@ -15,7 +15,7 @@ export async function RunAllRecipes(page) {
     console.error('Failed to fetch data from MongoDB:', error);
     return [];
   } finally {
-    await closeMongoConnection();
+    // await closeMongoConnection();
   }
 }
 
@@ -32,6 +32,6 @@ export async function getRecipeById(id) {
     console.error('Failed to fetch data from MongoDB:', error);
     return null;
   } finally {
-    await closeMongoConnection();
+    // await closeMongoConnection();
   }
 }

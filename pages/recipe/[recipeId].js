@@ -6,8 +6,8 @@ import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
 import { RunAllergens } from '../../helpers/database/allergensModule';
 import RecipeTags from '@/components/home-page/recipe-tags';
-import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import Loading from '@/components/Loading/Loading';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
@@ -108,8 +108,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           ) : (
             <p>{editedDescription}</p>
           )}
-
-          <div onClick={() => console.log('clicked2')}>
+          <div>
             <AddToFavoritesButton recipe={recipe} />
           </div>
 

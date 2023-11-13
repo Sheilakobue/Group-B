@@ -26,10 +26,11 @@ export async function connectToMongo() {
   }
 }
 
+
 // Define a helper function to close the connection
 export async function closeMongoConnection() {
   try {
-    await client.close();
+    // await client.close();
     console.log("MongoDB connection closed");
   } catch (error) {
     console.error("Failed to close MongoDB connection:", error);
@@ -73,19 +74,19 @@ export async function RemoveFavoriteFromDB(recipeId) {
   } catch (err) {}
 };
 
-export async function getFavoritesFromMongoDB() {
+// export async function getFavoritesFromMongoDB() {
   
-  const db = client.db('devdb');
-  const collection = db.collection('favorites');
-  const data = collection.find();
-  try {
-    const recipes = await data.toArray();
-    return recipes;
-  } catch (error) {
-    console.error('Error fetching favorites:', error);
-    throw error;
-  }
-};
+//   const db = client.db('devdb');
+//   const collection = db.collection('favorites');
+//   const data = collection.find();
+//   try {
+//     const recipes = await data.toArray();
+//     return recipes;
+//   } catch (error) {
+//     console.error('Error fetching favorites:', error);
+//     throw error;
+//   }
+// };
 
 export async function addFavoriteToMongoDBToo(title) {
 
@@ -95,3 +96,31 @@ export async function addFavoriteToMongoDBToo(title) {
     recipe: title,
   });
 };
+
+export const connectToMongoToo = new MongoClient(
+  'mongodb+srv://groupb:siGyDb5l6UAMEEgD@groupb.xmhz5up.mongodb.net/?retryWrites=true&w=majority',
+  {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
+  }
+);
+
+//is working
+export async function addFavoritesFromMongoDB(recipe) {
+  const db = connectToMongoToo.db('devdb')
+  await db.collection('favorites').insertOne(recipe)
+};
+//is working
+export async function getFavoritesFromMongoDB() {
+  const db = connectToMongoToo.db('devdb');
+  const favs = await db
+    .collection('favorites')
+    .find()
+    .toArray();
+  return favs;
+}
+
+

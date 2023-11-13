@@ -1,81 +1,96 @@
-import { addFavoriteToMongoDB, addFavoriteToMongoDBToo } from '@/helpers/database/favoriteModule';
-import { connectToDatabase } from '../../db';
-import { getSession } from 'next-auth/react';
+// import { addFavoriteToMongoDB, addFavoriteToMongoDBToo } from '@/helpers/database/favoriteModule';
+// import { connectToDatabase } from '../../db';
+// import { getSession } from 'next-auth/react';
 
-async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+import { addFavoritesFromMongoDB } from "@/helpers/mongodb";
 
-  const session = await getSession({ req });
+// async function handler(req, res) {
+//   if (req.method !== 'POST') {
+//     return res.status(405).json({ error: 'Method not allowed' });
+//   }
 
-  if (!session) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
+//   const session = await getSession({ req });
 
-  const { recipe } = req.body;
+//   if (!session) {
+//     return res.status(401).json({ error: 'Unauthorized' });
+//   }
 
-  if (!recipe) {
-    return res.status(400).json({ error: 'Invalid request' });
-  }
+//   const { recipe } = req.body;
 
-  const db = await connectToDatabase();
-  const favoritesCollection = db.collection('favorites');
+//   if (!recipe) {
+//     return res.status(400).json({ error: 'Invalid request' });
+//   }
 
-  try {
-    const userId = session.user.id;
+//   const db = await connectToDatabase();
+//   const favoritesCollection = db.collection('favorites');
 
-    // Add user ID to the recipe object
-    const recipeWithUserId = { ...recipe, userId };
+//   try {
+//     const userId = session.user.id;
 
-    await favoritesCollection.insertOne(recipeWithUserId);
+//     // Add user ID to the recipe object
+//     const recipeWithUserId = { ...recipe, userId };
 
-    return res.status(201).json({ message: 'Recipe added to favorites' });
-  } catch (error) {
-    console.error('Error adding favorite to MongoDB:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
-  }
-}
+//     await favoritesCollection.insertOne(recipeWithUserId);
 
-// export default handler;
+//     return res.status(201).json({ message: 'Recipe added to favorites' });
+//   } catch (error) {
+//     console.error('Error adding favorite to MongoDB:', error);
+//     return res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// }
 
-//  export default async function handler(req, res){
+// // export default handler;
+
+// //  export default async function handler(req, res){
+// //   if(req.method === 'POST'){
+
+// //     const { recipe } = req.body;
+// //     const db = await connectToDatabase();
+// //     const favoritesCollection = db.collection('favorites');
+
+// //     try{
+// //       const recipeWithUserId = { ...recipe, userId };
+// //       await favoritesCollection.insertOne(recipeWithUserId);
+
+// //     }catch(error){
+// //       res.status(500).json({ error: 'Internal Server Error' });
+// //     }
+// //   }
+// //  }
+// export default async function handler(req, res) {
+//   // if (req.method === 'POST') {
+//   //   try {
+//   //     const recipe = req.body.recipe; // Extract the recipe from the request body
+//   //     await addFavoriteToMongoDB(recipe);
+//   //     res.status(200).json({ message: 'added favorite' });
+//   //   } catch (error) {
+//   //     res.status(500).json({ error: 'Internal Server Error' });
+//   //   }
+//   // }
+
 //   if(req.method === 'POST'){
 
-//     const { recipe } = req.body;
-//     const db = await connectToDatabase();
-//     const favoritesCollection = db.collection('favorites');
+//     const { title } = req.body
 
 //     try{
-//       const recipeWithUserId = { ...recipe, userId };
-//       await favoritesCollection.insertOne(recipeWithUserId);
-
+//       await addFavoriteToMongoDBToo(title);
+//       res.status(200).json({ message: 'success'})
 //     }catch(error){
-//       res.status(500).json({ error: 'Internal Server Error' });
+//       res.status(500).json({ message: error})
 //     }
 //   }
-//  }
+// }
+
+//is working
 export default async function handler(req, res) {
-  // if (req.method === 'POST') {
-  //   try {
-  //     const recipe = req.body.recipe; // Extract the recipe from the request body
-  //     await addFavoriteToMongoDB(recipe);
-  //     res.status(200).json({ message: 'added favorite' });
-  //   } catch (error) {
-  //     res.status(500).json({ error: 'Internal Server Error' });
-  //   }
-  // }
+  if (req.method === 'POST') {
+    const { recipe } = req.body;
 
-  if(req.method === 'POST'){
-
-    const { title } = req.body
-
-    try{
-      await addFavoriteToMongoDBToo(title);
-      res.status(200).json({ message: 'success'})
-    }catch(error){
-      res.status(500).json({ message: error})
+    try {
+      await addFavoritesFromMongoDB(recipe);
+      res.status(200).json({ message: 'success' });
+    } catch (error) {
+      res.status(500).json({ message: 'not working', error });
     }
   }
 }
-

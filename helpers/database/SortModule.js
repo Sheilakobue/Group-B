@@ -15,6 +15,6 @@ export async function runSortDate(page) {
     console.error('Failed to connect to MongoDB:', error);
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
