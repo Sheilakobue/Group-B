@@ -10,7 +10,7 @@ import MyCarousel from '@/components/home-page/carousel';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
-  const [selectedTags, setSelectedTags] = useState([]); 
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const ingredientsArray = Object.entries(recipe.ingredients).map(
     ([ingredient, amount]) => `${ingredient}: ${amount} `
@@ -35,7 +35,6 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
       setTagsError(true);
     }
   }, [error]);
-
 
   if (error) {
     return <div>Error loading recipe details.</div>;
@@ -95,7 +94,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
         {allergensForRecipe.length > 0 ? (
           <ul>
             {allergensForRecipe.map((allergen, index) => (
-              <li className={styles.p} key={index}>{allergen}</li>
+              <li className={styles.p} key={index}>
+                {allergen}
+              </li>
             ))}
           </ul>
         ) : (
@@ -121,7 +122,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           </div>
         )}
 
-    <h1 className={styles.title}>Description:</h1>
+        <h1 className={styles.title}>Description:</h1>
         {isEditingDescription ? (
           <UpdateDescription
             initialDescription={editedDescription}
@@ -141,26 +142,28 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
         <div>
           <div>
-          <AddToFavoritesButton
-                recipe={recipe}
-              />
+            <AddToFavoritesButton recipe={recipe} />
             <div>
               <h1 className={styles.sub}>Preparation Time:</h1>
               <p className={styles.p}>{formatTime(recipe.prep)}</p>
-              <br/>
+              <br />
               <h1 className={styles.sub}>Cooking Time:</h1>
               <p className={styles.p}>{formatTime(recipe.cook)}</p>
-              <br/>
+              <br />
               <h1 className={styles.sub}>Total Time:</h1>
-              <p className={styles.p}>{formatTime(recipe.cook + recipe.prep)}</p>
+              <p className={styles.p}>
+                {formatTime(recipe.cook + recipe.prep)}
+              </p>
             </div>
             <h3 className={styles.title}>Ingredients:</h3>
             <ul>
               {ingredientsArray.map((ingredient, index) => (
-                <li className={styles.p} key={index}>{ingredient}</li>
+                <li className={styles.p} key={index}>
+                  {ingredient}
+                </li>
               ))}
             </ul>
-            
+
             <h3 className={styles.title}>Instructions:</h3>
             {isEditingInstructions ? (
               <UpdateInstructions
@@ -170,7 +173,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             ) : (
               <ol className={styles.instructions}>
                 {editedInstructions.map((step, index) => (
-                  <li className={styles.p} key={index}>{step}</li>
+                  <li className={styles.p} key={index}>
+                    {step}
+                  </li>
                 ))}
               </ol>
             )}
@@ -205,15 +210,18 @@ export const getServerSideProps = async ({ params }) => {
       props: {
         recipe: Recipe,
         allergens: docs1[0],
-        error: false,
+        error: null,
       },
     };
   } catch (error) {
     console.error(error);
-    return {
+     return {
       props: {
         recipe: null,
-        error: error,
+        allergens: null,
+        error: {
+          message: error.message,
+        },
       },
     };
   }

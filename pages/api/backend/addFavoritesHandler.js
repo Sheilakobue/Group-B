@@ -1,4 +1,4 @@
-import { addFavoritesFromMongoDB } from "../mongodb";
+import { addFavoritesFromMongoDB } from "../../../database/favoritesModule";
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {

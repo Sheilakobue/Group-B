@@ -4,7 +4,7 @@ import RecipeDetailPage from '../recipe/[recipeId]';
 import Link from 'next/link';
 import classes from './RecipeDetailPage.module.css'; // Correct module name
 import { IoIosArrowBack } from 'react-icons/io';
-import { getFavoritesFromMongoDB } from '../api/mongodb';
+import { getFavoritesFromMongoDB } from '@/database/favoritesModule';
 import RecipeList from './recipe-list';
 
 function FavoritesPage({ favs }) {
