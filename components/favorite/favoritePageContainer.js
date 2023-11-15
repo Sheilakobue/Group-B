@@ -4,18 +4,13 @@ import { getFavoriteRecipes } from '../../helpers/database/favoriteModule';
 
 const FavoritePageContainer = () => {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
-
   useEffect(() => {
-    
     const fetchFavoriteRecipes = async () => {
       const data = await getFavoriteRecipes();
       setFavoriteRecipes(data);
     };
-
     fetchFavoriteRecipes();
   }, []);
-
   return <FavoritePage favoriteRecipes={favoriteRecipes} />;
 };
-
 export default FavoritePageContainer;

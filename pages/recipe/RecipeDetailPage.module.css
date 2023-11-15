@@ -1,60 +1,92 @@
 /* RecipeDetailPage.module.css */
+
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #474646;
-    color: #fff8f8;
-    padding: 20%;
+  max-width: 800px; /* Adjust the maximum width based on your design */
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(15, 15, 97, 0.067); /* Set the background color to grey */
 }
 
 .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #fff8f8;}
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #321a80; /* Set font color to green */
+}
+
+.sub {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: 10px;
+}
+
+.tagSection {
+  margin-top: 10px;
+}
+
+.tagButtonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tagButton {
+  margin: 5px;
+  padding: 8px 12px;
+  background-color: #95a5a6; /* Set background color to grey */
+  color: #101211; /* Set font color to green */
+  border: 1px solid #7f8c8d; /* Add a border for a cleaner look */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tagButton:hover {
+  background-color: #7f8c8d; /* Darker grey on hover */
+}
+
+.selectedTag {
+  background-color: #252e29;
+}
+
+.descriptionSection {
+  margin-top: 20px;
+}
+
+.updateDescriptionContainer {
+  margin-top: 10px;
+}
+
+.btn {
+  margin-top: 10px;
+  background-color: #080909; /* Set button background color to green */
+  color: #fff; /* Set button font color to white */
+}
+
+.instructionsSection {
+  margin-top: 20px;
+}
+
+.updateInstructionsContainer {
+  margin-top: 10px;
+}
+
+.instructionsButton {
+  margin-top: 10px;
+  background-color: #0b0b0b; /* Set button background color to green */
+  color: #fff; /* Set button font color to white */
+}
 
 .instructions {
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    color: #fff8f8;
+  list-style-type: decimal;
 }
 
-
-/* FavoritePage */
-
-.fav{
-    display: flex;
-  justify-content: center;
-
+.sub{
+  color: #080909;
 }
-
-.message{
-display: flex;
-  justify-content: center;
-
+.p{
+  color:#101211;
 }
-
-.back-link {
-  margin-bottom: 10px;
-}
-
-.back-link a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #333333;
-}
-
-.back-link a:hover {
-  color: #313336; /* Change color on hover */
-}
-
-.favIcon{
-   position: fixed;
-   top:120px; 
-   color: green;
-   font-size: 20px;
-   margin-left: 10px;
-}
+/* Add any additional styles as needed */

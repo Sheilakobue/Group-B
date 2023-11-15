@@ -1,7 +1,7 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
 
-dotenv.config();       
+dotenv.config();
 let client;
 
 export async function connectToMongo() {
@@ -16,7 +16,6 @@ export async function connectToMongo() {
   });
 
   // Define a helper function to connect and handle errors
-
   try {
     await client.connect();
     console.log("Connected to MongoDB");
@@ -25,7 +24,6 @@ export async function connectToMongo() {
     throw error;
   }
 }
-
 
 // Define a helper function to close the connection
 export async function closeMongoConnection() {
@@ -41,17 +39,14 @@ export function getClient() {
   return client;
 }
 
-
 export async function AddFavoriteToMongoDB(recipe) {
-
   try {
      const db = client.db('devdb');
      await db.command({ ping: 1 });
-    const favoritesCollection = db.collection('favorites'); 
+    const favoritesCollection = db.collection('favorites');
     const existingFavorite = await favoritesCollection.findOne({
       _id: recipe._id,
     });
-
     if (existingFavorite) {
       console.log('Favorite already exists.');
       return;
@@ -66,7 +61,6 @@ export async function AddFavoriteToMongoDB(recipe) {
 };
 
 export async function RemoveFavoriteFromDB(recipeId) {
-
   try {
     const favoritesCollection = await connectToCollection('devdb', 'favorites');
     const deleteResult = await favoritesCollection.deleteOne({ _id: recipeId });
@@ -74,24 +68,8 @@ export async function RemoveFavoriteFromDB(recipeId) {
   } catch (err) {}
 };
 
-// export async function getFavoritesFromMongoDB() {
-  
-//   const db = client.db('devdb');
-//   const collection = db.collection('favorites');
-//   const data = collection.find();
-//   try {
-//     const recipes = await data.toArray();
-//     return recipes;
-//   } catch (error) {
-//     console.error('Error fetching favorites:', error);
-//     throw error;
-//   }
-// };
-
 export async function addFavoriteToMongoDBToo(title) {
-
   const db = client.db('devdb');
-
   await db.collection('favorites').insertOne({
     recipe: title,
   });
@@ -108,12 +86,11 @@ export const connectToMongoToo = new MongoClient(
   }
 );
 
-//is working
 export async function addFavoritesFromMongoDB(recipe) {
   const db = connectToMongoToo.db('devdb')
   await db.collection('favorites').insertOne(recipe)
 };
-//is working
+
 export async function getFavoritesFromMongoDB() {
   const db = connectToMongoToo.db('devdb');
   const favs = await db
@@ -122,5 +99,3 @@ export async function getFavoritesFromMongoDB() {
     .toArray();
   return favs;
 }
-
-
