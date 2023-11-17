@@ -1,6 +1,10 @@
-import { connectToMongo, closeMongoConnection, getClient } from '../mongodb';
+import {
+  connectToMongo,
+  closeMongoConnection,
+  getClient,
+} from '../api/mongodb';
 
-export async function RunAllergens() {
+export async function run1() {
   await connectToMongo();
   const client = getClient();
 
@@ -15,6 +19,6 @@ export async function RunAllergens() {
     console.error('Failed to fetch data from MongoDB:', error);
     return [];
   } finally {
-    // await closeMongoConnection();
+    await closeMongoConnection();
   }
 }

@@ -1,36 +1,32 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
-import classes from './recipe-list.module.css';
+import classes from '../../styles/recipe-list.module.css';
 import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
 import Sort from '../../components/recipes/sort';
-import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+import SearchBar from '../../components/search/SearchBar';
+import Pagination from './pagination';
+import Highlighter from 'react-highlight-words';
+import AddToFavoritesButton from '../../components/icons&Buttons/add-to-favorite-btn';
 
-function RecipeList({ data,}) {
+
+function RecipeList({ data }) {
+  // Check if data is not an array or is empty
+  if (!Array.isArray(data) || data.length === 0) {
+    return (
+      <div className={classes.container}>
+        <h1 className={classes.title}>No recipes available.</h1>
+      </div>
+    );
+  }
+  
+  const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
   const recipesPerPage = 100;
-
-  //  const addFavoritesHandler = async (recipe) => {
-  //    try {
-  //      const response = await fetch('/api/backend/addFavorite', {
-  //        method: 'POST',
-  //        headers: {
-  //          'Content-Type': 'application/json',
-  //        },
-  //        body: JSON.stringify(recipe),
-  //      });
-
-  //      if (response.ok) {
-  //        console.log('Recipe added to favorites');
-  //      }
-  //    } catch (error) {
-  //      console.error('Error adding recipe to favorites:', error);
-  //    }
-  //  };
-
+  const totalPageCount = Math.ceil(data.length / recipesPerPage);
 
   const handleSort = (order) => {
     setSortOrder(order);
@@ -42,24 +38,16 @@ function RecipeList({ data,}) {
     }
   };
 
-  const remainingRecipes = data.length - (currentPage - 1) * recipesPerPage;
-  const totalPages = Math.ceil(data.length / recipesPerPage);
+  const remainingRecipes = data.length - currentPage * recipesPerPage;
 
   let displayedRecipes = data.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
-
-  // If there are remaining recipes, adjust the displayed recipes on the last page
+  
   if (remainingRecipes < recipesPerPage) {
     displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
   }
-
-  const totalPageCount = Math.ceil(data.length / recipesPerPage);
-  const pageNumbers = Array.from(
-    { length: totalPageCount },
-    (_, index) => index + 1
-  );
 
   switch (sortOrder) {
     case 'newest':
@@ -79,12 +67,24 @@ function RecipeList({ data,}) {
     case 'prep-desc':
       displayedRecipes.sort((a, b) => b.prep - a.prep);
       break;
+    case 'steps-asc':
+      displayedRecipes.sort(
+        (a, b) => a.instructions.length - b.instructions.length
+      );
+      break;
+    case 'steps-desc':
+      displayedRecipes.sort(
+        (a, b) => b.instructions.length - a.instructions.length
+      );
+      break;
   }
 
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
 
+      <SearchBar search={search} setSearch={setSearch} />
+      <br />
       <Sort onSort={handleSort} />
       <br />
       <div className={classes.cardContainer}>
@@ -99,64 +99,55 @@ function RecipeList({ data,}) {
             </div>
 
             <div className={classes.cardContent}>
-              <h2 className={classes.cardTitle}>{recipe.title}</h2>
+              <Highlighter
+                className={classes.cardTitle}
+                textToHighlight={recipe.title}
+                searchWords={[search]}
+                autoEscape={true}
+              />
 
               <p
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
-                <FaCalendar size="1.5em" />
+                <FaCalendar style={{ fontSize: '1.0em' }} />
+                Date Published: <br></br>
                 {formatDate(recipe.published)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaHourglass style={{ fontSize: '1.5em' }} />{' '}
+                <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:{' '}
+                <br></br>
                 {formatTime(recipe.prep)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: '1.5em' }} />{' '}
+                <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time: <br></br>
                 {formatTime(recipe.cook)}
+              </p>
+
+              <p className={classes.cardCategory}>
+                <FaClock style={{ fontSize: '1.0em' }} /> total-time: <br></br>
+                {formatTime(recipe.cook + recipe.prep)}
               </p>
 
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
 
-              <div>
-                <AddToFavoritesButton recipe={recipe} />
-              </div>
+              <AddToFavoritesButton recipe={recipe} />
             </div>
           </div>
         ))}
       </div>
-
       <br />
       <div>
         {totalPageCount > 1 && (
-          <div className={classes.pagination}>
-            {currentPage > 1 && (
-              <span onClick={() => handlePageChange(currentPage - 1)}>
-                Previous
-              </span>
-            )}
-
-            {pageNumbers.map((page) => (
-              <span
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={page === currentPage ? classes.activePage : ''}
-              >
-                {page}
-              </span>
-            ))}
-
-            {currentPage < totalPageCount && (
-              <span onClick={() => handlePageChange(currentPage + 1)}>
-                Next
-              </span>
-            )}
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPageCount={totalPageCount}
+            handlePageChange={handlePageChange}
+          />
         )}
 
         <div className={classes.pageInfo}>
