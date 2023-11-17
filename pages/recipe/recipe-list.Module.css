@@ -113,3 +113,23 @@
   background-color: #4caf50;
   color: white;
 }
+
+/* favorite */
+
+.favIcon {
+  color: green; 
+  font-size: 2rem; 
+  position: relative;
+  top:40px;
+}
+
+.fav {
+  color: green; 
+  text-align: center; 
+}
+
+
+.message {
+  color: green; 
+  text-align: center; 
+}

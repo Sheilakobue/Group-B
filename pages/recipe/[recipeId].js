@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import styles from '../recipe/RecipeDetailPage.module.css';
-import { getRecipeById } from '../../database/recipesModule';
+import { getRecipeById } from '../database/recipesModule';
 import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
-import { run1 } from '../../database/allergensModule';
+import { run1 } from '../database/allergensModule';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import MyCarousel from '@/components/home-page/carousel';
 
@@ -215,7 +215,7 @@ export const getServerSideProps = async ({ params }) => {
     };
   } catch (error) {
     console.error(error);
-     return {
+    return {
       props: {
         recipe: null,
         allergens: null,

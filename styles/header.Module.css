@@ -7,12 +7,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0;
+    padding: 1rem;
     z-index: 100;
     box-shadow: 5px 5px 10px rgba(0, 0, 4, 0.714);
   }
-
- 
   
   .header ul {
     list-style: none;
@@ -23,10 +21,11 @@
   }
   
   .header .icon {
-    color: white; /* Change the icon color to white */
+    color: white; 
     padding: 2px;
     padding-top: 5px;
     font-weight: bold;
+   
   }
   
   .header .logo{
@@ -42,9 +41,9 @@
   }
   
   .header a {
-    color: white; /* Set the font color to white */
+    color: white;
     font-size: var(--size-5);
-    text-decoration: none; /* Remove underline */
+    text-decoration: none; 
   }
   
   .header a:hover,
@@ -56,7 +55,7 @@
   
   @media (max-width: 767px) {
     .header {
-      background-color: green; /* Set the background color to green */
+      background-color: green; 
       z-index: 100;
     }
   
@@ -66,7 +65,7 @@
       position: absolute;
       top: 6rem;
       left: 0;
-      background-color: green; /* Set the overlay background color to green */
+      background-color: green; 
       width: 100%;
     }
   
@@ -97,4 +96,29 @@
     }
   
   }
+
+  .icon {
+  margin-right: 2rem;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.favoriteBadge {
+  position: fixed;
+  top:-20px;
+}
+
+.favoriteCount {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: rgb(30, 29, 29);
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 12px;
+}
   

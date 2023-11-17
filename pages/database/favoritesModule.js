@@ -1,4 +1,4 @@
-import { connectToMongo, getClient } from '../pages/api/mongodb';
+import { connectToMongo, getClient } from '../api/mongodb';
 
 async function connectToCollection(database, collection) {
   try {
@@ -62,4 +62,3 @@ export async function RemoveFavoriteFromDB(recipeId) {
     throw error;
   }
 }
-

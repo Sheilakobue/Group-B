@@ -4,6 +4,9 @@ import { getFavoriteRecipes } from '../../helpers/database/favoriteModule';
 
 const FavoritePageContainer = () => {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchFavoriteRecipes = async () => {
       const data = await getFavoriteRecipes();
@@ -11,6 +14,17 @@ const FavoritePageContainer = () => {
     };
     fetchFavoriteRecipes();
   }, []);
+
+   if (loading) {
+     // Loading state
+     return <p>Loading...</p>;
+   }
+
+if (error) {
+  // Error state
+  return <p>Error: {error}</p>;
+}
+
   return <FavoritePage favoriteRecipes={favoriteRecipes} />;
 };
 export default FavoritePageContainer;

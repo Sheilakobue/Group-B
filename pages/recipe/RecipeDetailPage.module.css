@@ -90,3 +90,20 @@
   color:#101211;
 }
 /* Add any additional styles as needed */
+.message{
+  position: relative;
+  text-align: center;
+  color: green;
+  
+}
+.fav{
+  position: relative;
+  color: green;
+  text-align: center;
+}
+.favIcon{
+  position: relative;
+  color: green;
+  top:50px;
+
+}

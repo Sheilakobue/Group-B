@@ -4,7 +4,7 @@ import RecipeDetailPage from '../recipe/[recipeId]';
 import Link from 'next/link';
 import classes from './RecipeDetailPage.module.css'; // Correct module name
 import { IoIosArrowBack } from 'react-icons/io';
-import { getFavoritesFromMongoDB } from '@/database/favoritesModule';
+import { getFavoritesFromMongoDB } from '../database/favoritesModule';
 import RecipeList from './recipe-list';
 
 function FavoritesPage({ favs }) {
@@ -26,7 +26,7 @@ function FavoritesPage({ favs }) {
   return (
     <section>
       <Link href={`/recipe`} passHref>
-        <IoIosArrowBack title="Back to recipes" className={classes.favIcon} />
+        <IoIosArrowBack  title="Back to recipes" className={classes.favIcon} />
       </Link>
       <br />
       <h1 className={classes.fav}>Favorite</h1>
