@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from '../../styles/RecipeDetailPage.module.css';
+import styles from '../../pages/recipe/recipe-list.module.css';
 
 const MyCarousel = ({ images }) => {
   const [slideIndex, setSlideIndex] = useState(0);

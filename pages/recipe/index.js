@@ -1,7 +1,7 @@
 import React from 'react';
 import { Fragment } from 'react';
-import RecipeList from './recipe-list';
-import ArrowIpIcon from '../../components/icons&Buttons/arrow-up-icon';
+import RecipeList from '@/pages/recipe/recipe-list';
+import ArrowIpIcon from '@/components/icons&Buttons/arrow-up-icon';
 import { run } from '../database/recipesModule';
 
 export default function AllRecipes(props) {

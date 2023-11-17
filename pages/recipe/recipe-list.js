@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
-import classes from '../../styles/recipe-list.module.css';
+import classes from '../../pages/recipe/recipe-list.module.css';
 import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
@@ -9,7 +9,7 @@ import Sort from '../../components/recipes/sort';
 import SearchBar from '../../components/search/SearchBar';
 import Pagination from './pagination';
 import Highlighter from 'react-highlight-words';
-import AddToFavoritesButton from '../../components/icons&Buttons/add-to-favorite-btn';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 
 function RecipeList({ data }) {
@@ -44,7 +44,7 @@ function RecipeList({ data }) {
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
-  
+
   if (remainingRecipes < recipesPerPage) {
     displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
   }
